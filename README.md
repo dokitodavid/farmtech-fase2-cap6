@@ -27,7 +27,7 @@
 
 O Brasil é líder mundial na produção de cana-de-açúcar, com safras superiores a 620 milhões de toneladas por ano. No entanto, a colheita mecanizada — hoje predominante no setor — gera perdas que podem chegar a 15% da produção, segundo a SOCICANA (Associação dos Plantadores de Cana da Região de Guariba). Em comparação, a colheita manual raramente ultrapassa 5% de perda. Considerando o estado de São Paulo, com aproximadamente 3 milhões de hectares plantados e produtividade média de 100 t/ha, esse percentual representa prejuízos anuais na casa de R$ 20 milhões para o setor.
 
-Este projeto propõe uma solução em Python para o registro, análise e acompanhamento de perdas na colheita mecanizada de cana-de-açúcar. A aplicação permite ao produtor cadastrar colheitas informando área (ha), produção estimada (ton), velocidade da colhedora (km/h) e clima durante a operação. A partir desses dados, o sistema calcula automaticamente a perda estimada usando uma tabela de memória baseada em Santos et al. (2014), classifica o nível de perda segundo critérios SOCICANA (BAIXO ≤ 3%, MÉDIO ≤ 4,5%, ALTO > 4,5%) e gera recomendações operacionais específicas para cada cenário.
+Este projeto propõe uma solução em Python para o registro, análise e acompanhamento de perdas na colheita mecanizada de cana-de-açúcar. A aplicação permite ao produtor cadastrar colheitas informando área (ha), produção estimada (ton), velocidade da colhedora (km/h) e clima durante a operação. A partir desses dados, o sistema calcula automaticamente a perda estimada usando uma tabela de memória baseada em Santos et al. (2019), classifica o nível de perda segundo critérios SOCICANA (BAIXO ≤ 3%, MÉDIO ≤ 4,5%, ALTO > 4,5%) e gera recomendações operacionais específicas para cada cenário.
 
 A solução é estruturada em quatro módulos Python: `colheitas.py` (lógica de cálculo, validação de inputs e recomendações), `arquivo.py` (persistência em JSON e exportação de relatório TXT), `banco.py` (integração com Oracle Database) e `main.py` (menu interativo). Os dados são persistidos simultaneamente em JSON local e no Oracle, garantindo redundância e permitindo análise histórica. O usuário pode ainda exportar relatórios completos em TXT com a média geral de perdas no período.
 
@@ -66,8 +66,8 @@ pip install oracledb
 **1. Clone o repositório:**
 
 ```
-git clone https://github.com/SEU-USUARIO/NOME-DO-REPO.git
-cd NOME-DO-REPO
+git clone https://github.com/dokitodavid/farmtech-fase2-cap6.git
+cd farmtech-fase2-cap6
 ```
 
 **2. Crie a tabela no Oracle:**
@@ -115,6 +115,14 @@ python src/main.py
 - **Opção 3** — Exportar relatório em TXT
 - **Opção 4** — Consultar registros direto do banco Oracle
 - **Opção 5** — Sair
+
+## 📚 Fontes e referências
+
+### Fundamentação científica (usada no código)
+
+- **SANTOS, J. R. et al.** *Perdas na colheita mecanizada da cana-de-açúcar em função da velocidade de trabalho da colhedora.* Pesquisa Agropecuária Pernambucana, Recife, v. 24, n. 2, 2019. Fonte dos dados experimentais de perda por velocidade utilizados na tabela de memória `tabela_perdas` (`colheitas.py`). Disponível em: <https://pap.emnuvens.com.br/pap/article/view/210/102>
+
+- **SOCICANA** — Associação dos Plantadores de Cana da Região de Guariba. *Ajustes na colheita fazem a cana render mais.* Fonte dos limiares de classificação dos níveis de perda (BAIXO ≤ 3%, MÉDIO ≤ 4,5%, ALTO > 4,5%) implementados em `colheitas.py`, e base das recomendações operacionais geradas pelo sistema. Disponível em: <https://socicana.com.br/noticias/ajustes-na-colheita-fazem-a-cana-render-mais/>
 
 ## 🗃 Histórico de lançamentos
 
